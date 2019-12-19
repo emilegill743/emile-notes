@@ -1,0 +1,250 @@
+###INTRODUCTION TO GIT###
+
+version control system: manages changes made to files and directories in a project.
+
+-Saves changes made to projects
+-Automatically notifies when conflicts
+-Synchronises work across different users and machines
+
+repository: the files and directories in a git project, in addition to infromation recorded about the project's history.
+
+Checking state of repository:
+    git status
+    -displays list of files which have been modified since the last changes were saved
+
+    Working directory --> Staging Area --> .git Directory
+
+    git status shows files in the staging Area
+
+Checking differences to last saved version:
+    git diff filename #for file
+    git diff directory #for directory
+    git diff #shows all changes
+
+    e.g.
+    diff --git a/report.txt b/report.txt
+    index e713b17..4c0742a 100644
+    --- a/report.txt
+    +++ b/report.txt
+    @@ -1,4 +1,5 @@
+    -# Seasonal Dental Surgeries 2017-18
+    +# Seasonal Dental Surgeries (2017) 2017-18
+    +# TODO: write new summary
+
+    a, b are placeholders representing 'first version', 'second version'
+    - lines removed
+    + lines added
+    @@ tells us where changes are being made (start line, end line)
+
+Commiting changes:
+    git commit -m "log message"
+
+    Amend mistyped comment
+    git commit --amend -m "new message"
+
+    Make longer comment
+    'git commit' with '-m message' absent launches text editor
+    Ctrl-O, Enter to save
+    Ctrl-X te exit editor
+
+View repository history:
+    git log
+
+    Specific files history
+    git log [path]
+
+    Limited number of commits output
+    git log -n #See last n commits
+
+Commit structure:
+    commit - metadata e.g. author, commit message, time
+    tree - names and locations in repository when commit happened.
+    blob - (binary large object) compressed snapshot of contents of file when commit happened
+    hash - pseudo-random number generated for each unique commit
+
+View a specific commit:
+    git show
+    git show [hash- first 6 char] for specific commit
+    git show -r HEAD
+
+    HEAD refers to most recent commit
+    HEAD~1 is the commit before
+    HEAD~2 is the commit before that etc.
+    
+View who made changes to file and when:
+    git annotate [filename]
+    Returns 5 elements:
+        1. first 8 digits of hash
+        2. author
+        3. time of commit
+        4. line number
+        5. contents of line
+
+Show changes between two commits:
+    git show [ID] shows changes made in particular commit
+    git diff ID1..ID2 shows difference between two commits
+    e.g.
+        git diff abc123..def456
+        git diff HEAD~1..HEAD~3
+
+Tell git to ignore certain files:
+    Create a file in root directory called .gitignore
+    Store list of wildcard patterns for files Git should ignore
+
+    e.g.
+        build #ignore directory called build
+        *.mpl #ignore files ending in .mpl
+
+Remove unwanted files:
+    git clean -n #shows list of files in repository but who's history is not being tracked
+    git clean -f #will delete these files
+
+See how Git is configured:
+    git config --list --system #settings for all users on computer
+    git config --list --global #settings for all projects
+    git config --list --local #settings for one project
+
+Change Git configuration:
+    git config --global [setting] [value]
+    e.g.
+        git config --global user.email rep.loop@datacamp.com
+
+Commit changes selectively:
+    git add path/to/file #to stage single file
+
+Reverse accidental staging:
+    git reset HEAD
+
+Undo changes to unstaged files:
+    git checkout -- filename #discard changes that have not been staged
+
+Undo changes to staged files:
+    git reset HEAD path/to/file #unstages file
+    git checkout -- path/to/file #undo changes since last commit
+
+Restore old version of a file:
+    git log #shows old versions
+    git checkout [hash_6_char] [filename] #replaces curret version with previous version
+    Restoring file doesn't delete history of repository, just saves the restore as another commit
+
+Display contents of file:
+    cat [filename]
+
+Undo all changes made:
+    git reset HEAD [directory] #unstage all files from directory
+    Head default command so 'git reset' had same effect
+
+    git checkout --dir #restore files to previous state
+    git checkout -- . #restore files in current dir
+
+Branches:
+    Branches are multiple versions of the same work, to which changes may be made independently, until merged back together.
+
+    Three part data structure:
+        blob - files
+        trees - saved states
+        commits - record changes
+    
+        Branches are the reason trees and commits are needed.
+        A commit will have two parents when branches are beign merged.
+
+List branches of repository:
+    git branch
+    Current branch shown with *
+
+Difference between branches:
+    Branches and revisions are closely connected, commands that work on the later normally work on the former.
+    git diff branch-1..branch-2y
+
+Switch between branches:
+    git checkout [branch]
+    Git will only allow you to do this if you have committed all changes to the branch.
+
+Delete file:
+    git rm
+
+Create branch:
+    Can use 'git branch'
+    But more commonly want to create branch and switch to it.
+    -b flag using checkout creates and switches in one step.
+    git checkout -b branch-name
+
+Merging branches:
+    If changes to two branches aren't conflicting we can incorporate the changes made to the source branch into the destination branch.
+    git merge source destination
+
+Merging branches with conflicts:
+    'git status' after merge will remind you of conflicts that you need to resolve
+    Git will leave markers inside the file to show where these conflicts occur
+    
+    e.g.    <<<<<<< destination-branch-name
+            ...changes from the destination branch...
+            =======
+            ...changes from the source branch...
+            >>>>>>> source-branch-name
+
+    Can open the file using nano [file] and resolve marker conflicts
+    Add the file to the staging area 'git add [file]
+    Commit changes git commit -m [message]
+
+Create new repository:
+    git init [project-name]
+    Avoid creating repositories inside other repositories
+
+Turn existing project into Git repository:
+    git init #when in projects working directory
+    git init [path to project]
+
+Create copy of existing repository:
+    git clone url
+    git clone [path to project] [new project name]
+
+Find out where a cloned repo originated:
+
+    git remote #lists names of remotes
+    git remote -v #lists remote URLs
+
+Define remotes:
+
+    Git automatically assigns 'origin': the original repo
+    Add additional remotes:
+    git remote add [remote-name] URL
+    git remote rm remote-name #remove remote name
+
+Pull in changes from remote repo:
+
+    Git keeps track of remote repositories so you can pull and puch changes to them.
+    A typical workflow is that you pull or push work to and from an online hosting service like GitHub.
+
+    git pull [remote-name] [branch-name]
+    e.g. git pull thunk latest-analysis
+
+    If you have unsaved changes Git will stop you from pulling before you have either commited your changes locally or reverted them.
+
+Push changes to remote repo:
+
+    Push changes from local to remote repo:
+    git push [remote-name] [branch-name]
+
+What if push conflicts with someone else's work?:
+    To prevent overwriting someones work Git requires you to merge the contents of a remote repo into your own, before puching
+
+    git pull [remote-name] [branch-name] #first merges remote with local
+    git push [remote-name] [branch-name] #then pushes merged dir to remote
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
