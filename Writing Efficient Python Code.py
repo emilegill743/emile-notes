@@ -1,6 +1,6 @@
 #####WRITING EFFICIENT PYTHON CODE#####
 
-'''Foundations of Pythonic Code'''
+'''Foundations for Efficiencies'''
 
     '''Defining Efficient'''
         # Minimal completion time (fast runtime)
