@@ -34,10 +34,10 @@
 
         #Using lists rather than slices
         df.loc['Jan':'May', ['eggs','spam']]
-        df.iloc[[0,4,5, 0:2]
+        df.iloc[[0, 4, 5], 0:2]
 
         #Slice in reverse order
-        election_df.loc['Potter' : 'Perry':-1] #Step -1
+        election_df.loc['Potter' : 'Perry': -1] #Step -1
 
 '''Filtering DataFrames'''
 

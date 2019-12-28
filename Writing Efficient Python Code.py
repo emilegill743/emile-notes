@@ -144,3 +144,45 @@
 
         guest_welcomes = [*welcome_map]
         print(*guest_welcomes, sep='\n')
+
+'''Examining Runtime'''
+
+    '''Timing Code'''
+
+        # IPython Magic Commands
+            # Enhancements on top of normal Python syntax
+            
+            # See all magic commands
+                %lsmagic
+
+        # Calculate runtime
+            %timeit # Single line
+            %%timeit # Multiple lines
+            -r # Set number of runs
+            -n # Set number of loops
+
+            # E.g.
+                %timeit -r2 -n10 rand_nums = np.random.rand(1000)
+
+                %%timeit
+                nums = []
+                for x in range(10)
+                    nums.append(x)
+
+            #Saving output
+            -o # Saving output to a variable
+            times = %timeit -o rand_nums = np.random.rand(1000)
+            
+            times.timings # All runs
+            times.best # Best run
+            times.worst # Worst run
+
+
+
+
+
+
+
+
+
+
