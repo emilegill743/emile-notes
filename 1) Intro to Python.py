@@ -57,7 +57,7 @@
     array([1,2,3])
 
 '''NumPy'''
-    Import numpy as np
+    import numpy as np
     np.array(list)
 
     #Numpy arrays contain only one data type

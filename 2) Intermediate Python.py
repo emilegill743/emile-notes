@@ -1,7 +1,7 @@
 #####INTERMEDIATE PYTHON#####
 
 '''Matplotlib'''
-    Import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
 
     plt.plot(x_list, y_list) #Line plot
 
@@ -44,7 +44,7 @@
 '''Pandas'''
 
     #Importing
-        Import pandas as pd
+        import pandas as pd
 
     #Reading data
         My_dataframe = pd.DataFrame(dict) #DataFrame from dictionary

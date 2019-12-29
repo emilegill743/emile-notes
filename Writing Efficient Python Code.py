@@ -145,7 +145,7 @@
         guest_welcomes = [*welcome_map]
         print(*guest_welcomes, sep='\n')
 
-'''Examining Runtime'''
+'''Timing and profiling code'''
 
     '''Timing Code'''
 
@@ -176,6 +176,49 @@
             times.timings # All runs
             times.best # Best run
             times.worst # Worst run
+
+    '''Code profiling for runtime'''
+
+        # Code profiling - Detailed stats on frequency and duration of function calls
+        # Allows line-by-line analysis
+
+        # Install
+        pip install line_profiler
+
+        # Load into Session
+        %load_ext line_profiler
+
+        # Magic command for line-by-line times
+        %lprun -f func_name func_name(arg1, arg2)
+        -f # Profile function
+
+    '''Code profiling for memory usage'''
+
+        # Basic approach
+            
+            sys.getsizeof() # Returns size of object in bytes
+
+            # E.g.
+                import sys
+                nums_list = [*range(1000)]
+                sys.getsizeof(nums_list)
+
+        # Inspecting line-by-line memory footprint
+
+            # Install
+            pip install memory_profiler
+
+            # Load into Session
+            %load_ext memory_profiler
+
+            # Magic command
+            %mprun -f func_name func_name(arg1, arg2)
+
+            # Function must be defined in physical file and imported
+
+            # Memory useage defined in Mebibytes
+
+
 
 
 
