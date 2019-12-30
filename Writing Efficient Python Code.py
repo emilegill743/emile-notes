@@ -218,6 +218,92 @@
 
             # Memory useage defined in Mebibytes
 
+'''Gaining Efficiencies'''
+
+    # Efficiently combining, counting, iterating
+
+        # Combining objects
+
+            # Combining with loop
+            names = ['Bulbasaur', 'Charmander', 'Squirtle']
+            hps = [45, 39, 44]
+
+            combined = []
+
+            for i, pokemon in enumerate(names):
+                combined.append((pokemon, hps[i]))
+
+            print(combined)
+
+            # Combining objects with zip
+            combined_zip = zip(names, hps)
+
+        # Counting Objects
+            # Counting with loop
+            poke_types = ['Grass', 'Dark', 'Fire', 'Fire', ... ]
+
+            type_counts = []
+
+            for poke_type in poke_types:
+                if poke_type not in type_counts:
+                    type_counts[poke_type] = 1
+                else:
+                    type_counts[poke_type] += 1
+
+            # collections.Counter()
+            from collections import Counter
+            type_counts = Counter(poke_types)
+
+        # Iterating
+            # Combinations with loop
+            poke_types = ['Bug', 'Fire', 'Ghost', 'Grass', 'Water']
+            combos = []
+
+            for x in poke_types:
+                for y in poke_types:
+                    if x==y:
+                        continue
+                    if ((x,y) not in combos) & ((y,x) not in combos):
+                        combos.append((x,y))
+
+            # itertools
+            from itertools import combinations
+            combos_obj = combinations(poke_types, 2)
+            combos = [*combos_obj]
+
+        # Set theory  
+
+            # Branch of Mathematics applied to collections of objects
+            # set - collection of distinct elements
+
+            # Python has built in set datatype with methods:
+                intersection() # all elements in both sets
+                difference() # all elements in one set but not other
+                symmetric_difference() # all elements in excactly one set
+                union() # all elements in either set
+
+            # Fast membership tetsing
+            element in set
+
+            # Comparing objects in lists
+            list_a = ['Bulbasaur', 'Charmander', 'Squirtle']
+            list_b = ['Caterpie', 'Pidgey', 'Squirtle']
+
+            set_a = set(list_a)
+            set_b = set(list_b)
+
+            set_a.intersection(set_b)
+            set_a.difference(set_b)
+            set_a.symmetric_difference(set_b)
+            set_a.union(set_b)
+
+            # Uniques with set
+            # Since set comprises distinct elements it can be used to find unique values in list
+            primary_types = ['Grass', 'Psychic', 'Dark', 'Bug', ...]
+            unique_types_set = set(primary_types)
+        
+
+
 
 
 
