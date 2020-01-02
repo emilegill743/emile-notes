@@ -302,6 +302,103 @@
             primary_types = ['Grass', 'Psychic', 'Dark', 'Bug', ...]
             unique_types_set = set(primary_types)
         
+        # Eliminating Loops
+
+            # Eliminate loops with built ins
+                poke_stats = [[90, 92, 75, 60],
+                            [25, 20, 15, 90],
+                            [65, 130, 60, 75]]
+
+                # For loop approach
+                totals = []
+                for row in poke_stats:
+                    totals.append(sum(row))
+                
+                # List comprehension
+                totals_comp = [sum(row) for row in poke_stats]
+
+                # Map function
+                totals_map = [*map(sum, poke_stats)]
+
+            # Eliminate loops with NumPy
+                poke_stats = np.array([ [90, 92, 75, 60],
+                                        [25, 20, 15, 90],
+                                        [65, 130, 60, 75]])
+
+                # For loop approach
+                avgs = []
+                for row in poke_stats:
+                    avg = np.mean(row)
+                    avgs.append(avg)
+
+                # NumPy approach
+                avgs_np = poke_stats.mean(axis=1)
+            
+        # Writing better loops
+            
+            # In the case that loops are unavoidable we can make them more efficient by considering:
+                # Understand what is being done with each iteration
+                # Move one-time calcs outside (above) the loop
+                # Move datatype conversions outside (below) the loop
+                    
+                    #Example
+
+                    # Converting tuple to list in loop
+                    names = ['Pikachu', 'Squirtle', 'Articuno']
+                    legend_status = [False, False, True]
+                    generations = [1, 1, 1]
+
+                    poke_data = []
+                    for poke_tuple in zip(names, legend_status, generations):
+                        poke_list = list(poke_tuple)
+                        poke_data.append(poke_list)
+                    
+                    # Use map to convert after loop
+                    poke_data_tuples
+                    for poke_tuple in zip(names, legend_status, generations):
+                        poke_data_tuples.append(poke_tuple)
+                    
+                    poke_data = [*map(list, poke_data_tuple)]
+
+'''Basic pandas Optimisations'''
+
+    '''pandas Iteration'''
+
+        # Iterating with iloc
+        win_perc_list = []
+
+        for i in range(len(baseball_df))
+             row = baseball_df.iloc[i]
+
+             wins = row['W']
+             games_played = row['G']
+             win_perc = calc_win_perc(wins, games_played)
+             win_perc_list.append(win_perc)
+
+        baseball_df['WP'] = win_perc_list
+
+        # Iterating with iterrows
+        win_perc_list = []
+
+        for row in baseball_df.iterrows():
+             wins = row['W']
+             games_played = row['G']
+             win_perc = calc_win_perc(wins, games_played)
+             win_perc_list.append(win_perc)
+
+        baseball_df['WP'] = win_perc_list
+
+        # Iterating with itertuples
+        for row_namedtuple in team_wins_df.itertuples():
+            print(row_namedtuple)
+            
+            # Column values and index accessible as attributes of named tuple
+            print(row_namedtuple.Index)
+            print(row_namedtuple.Team)
+
+        
+
+
 
 
 
