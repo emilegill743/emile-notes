@@ -39,12 +39,12 @@
         #Databases - AWS RDS
 
     #Azure
-        #Storage - Google Cloud Storage
+        #Storage - Azure Blob Storage
         #Computation - Azure Virtual Machines
         #Databases - Azure SQL Database
 
     #Google Cloud
-        #Storage - Azure Blob Storage
+        #Storage - Google Cloud Storage
         #Computation - Google Compute Engine
         #Databases - Google Cloud SQL
 
