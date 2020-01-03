@@ -365,39 +365,59 @@
     '''pandas Iteration'''
 
         # Iterating with iloc
-        win_perc_list = []
+            win_perc_list = []
 
-        for i in range(len(baseball_df))
-             row = baseball_df.iloc[i]
+            for i in range(len(baseball_df))
+                row = baseball_df.iloc[i]
 
-             wins = row['W']
-             games_played = row['G']
-             win_perc = calc_win_perc(wins, games_played)
-             win_perc_list.append(win_perc)
+                wins = row['W']
+                games_played = row['G']
+                win_perc = calc_win_perc(wins, games_played)
+                win_perc_list.append(win_perc)
 
-        baseball_df['WP'] = win_perc_list
+            baseball_df['WP'] = win_perc_list
 
         # Iterating with iterrows
-        win_perc_list = []
+            win_perc_list = []
 
-        for row in baseball_df.iterrows():
-             wins = row['W']
-             games_played = row['G']
-             win_perc = calc_win_perc(wins, games_played)
-             win_perc_list.append(win_perc)
+            for row in baseball_df.iterrows():
+                wins = row['W']
+                games_played = row['G']
+                win_perc = calc_win_perc(wins, games_played)
+                win_perc_list.append(win_perc)
 
-        baseball_df['WP'] = win_perc_list
+            baseball_df['WP'] = win_perc_list
 
         # Iterating with itertuples
-        for row_namedtuple in team_wins_df.itertuples():
-            print(row_namedtuple)
-            
-            # Column values and index accessible as attributes of named tuple
-            print(row_namedtuple.Index)
-            print(row_namedtuple.Team)
+            for row_namedtuple in team_wins_df.itertuples():
+                print(row_namedtuple)
+                
+                # Column values and index accessible as attributes of named tuple
+                print(row_namedtuple.Index)
+                print(row_namedtuple.Team)
 
-        
+        # pandas alternative to looping
 
+            # apply() method
+                0 # column-wise
+                1 # row-wise
+
+                baseball_df.apply(
+                    lambda row: calc_run_diff(row['RS'], row['RA']),
+                    axis = 1
+                )
+
+        # Optimal pandas iterating
+
+            # Built on NumPy
+            # Can take advantage of vectorised methods
+
+            # Get column of dataframe as NumPy array
+            wins_np = baseball_df['W'].values
+
+            # Utilise broadcasting ability of np array
+            run_diffs_np = baseball_df['RS'].values - baseball_df['RA'].values
+            baseball_df['RD'] = run_diffs_np
 
 
 
