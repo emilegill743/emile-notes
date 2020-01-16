@@ -23,8 +23,6 @@
     --Count number of distinct values in column
     SELECT COUNT(DISTINCT birthdate) FROM people;
 
-
-
 --FILTERING RESULTS
 
     --WHERE
