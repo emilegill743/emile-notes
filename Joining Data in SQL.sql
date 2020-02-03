@@ -56,6 +56,17 @@
         FROM states
         ORDER BY indep_year_group;
 
+        --Create table using INTO
+        SELECT name, continent, code, surface_area,
+              CASE WHEN surface_area > 2000000
+               THEN 'large'
+              WHEN surface_area > 350000
+               THEN 'medium'
+              ELSE 'small' END
+              AS geosize_group
+       INTO countries_plus
+       FROM countries;
+
 --OUTER JOINS AND CROSS JOINS
 
     --LEFT JOIN
