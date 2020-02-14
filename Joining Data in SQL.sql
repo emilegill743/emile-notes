@@ -195,6 +195,16 @@
                       GROUP BY continent) AS subquery
               WHERE monarchs.continent = subquery.continent
               ORDER BY continent;
+
+              
+              SELECT local_name, lang_num
+              
+              FROM countries,
+                     (SELECT code, COUNT(*) AS lang_num
+                     FROM languages
+                     GROUP BY code) AS subquery
+              WHERE countries.code = subquery.code
+              ORDER BY lang_num DESC;
                
 
 
