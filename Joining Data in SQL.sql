@@ -198,7 +198,6 @@
 
               
               SELECT local_name, lang_num
-              
               FROM countries,
                      (SELECT code, COUNT(*) AS lang_num
                      FROM languages
