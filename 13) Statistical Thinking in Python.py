@@ -44,18 +44,33 @@
         plt.show()
 
     # Empirical cumulative distribution functions (ECDF)
-    
-        import numpy as np
 
-        x = np.sort(df_swing['dem_share'])
+        # Example
+            import numpy as np
 
-        y = np.arange(1, len(x)+1) / len(x)
+            x = np.sort(df_swing['dem_share'])
 
-        _ = plt.plot(x, y, marker='.', linestyle='none')
-        _ = plt.xlabel('percent of vote for Obama')
-        _ = plt.ylabel('ECDF')
-        plt.margins(0.02)
-        plt.show()
+            y = np.arange(1, len(x)+1) / len(x)
+
+            _ = plt.plot(x, y, marker='.', linestyle='none')
+            _ = plt.xlabel('percent of vote for Obama')
+            _ = plt.ylabel('ECDF')
+            plt.margins(0.02)
+            plt.show()
+
+        # Function to calculate ECDF
+            def ecdf(data):
+                """Compute ECDF for a one-dimensional array of measurements."""
+                # Number of data points: n
+                n = len(data)
+
+                # x-data for the ECDF: x
+                x = np.sort(data)
+
+                # y-data for the ECDF: y
+                y = np.arange(1, n+1) / n
+
+                return x, y
 
 '''Quantitative Exploratory Data Analysis'''
 
@@ -66,6 +81,8 @@
 
     # Median
         np.median(dem_share_PA)
+
+        # Not influenced by outliers
 
     # Percentiles
         np.percentile([df_swing['dem_share'], [25, 50, 75])
