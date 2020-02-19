@@ -18,11 +18,6 @@
     A = PrintList([1,2,3])
     A.print_list()
 
-    '''Introduction to NumPy Internals'''
-
-        # NumPy - package for scientific computing in python
-        # Uses matrices and vectors as data structures
-
     '''Introduction to Objects and Classes'''
 
         # OOP Vocabulary
@@ -84,9 +79,9 @@
     '''Initialising a Class and Self'''
 
         # Constructor/__init__ method :
-        # Sets up initial object, before passing in information
-        # Called automatically, when object created
-        # Defines memory allocation of object
+            # Sets up initial object, before passing in information
+            # Called automatically, when object created
+            # Defines memory allocation of object
 
         # Self
             # Represents instance of class
@@ -115,8 +110,51 @@
 
         myDataShell.rename_column('cyl', 'cylinders')
 
-'''Fancy classes, fancy objects'''
+'''OOP Best Practices'''
     
+    # PEP-8 Style guid for Python Code
+        'https://www.python.org/dev/peps/pep-0008/#maximum-line-length'
+    
+    # Class names should be in CamelCase
 
+    # Max 79 char per line of code
 
+    # Docstring to explain purpose of class
+        # E.g.
+            class DataShell:
+                """
+                A simple class that brings a csv object in-memory as a 
+                numpy matrix so you can perform operations on it.
+                """
+                def __init__(self, filename):
+                    self.filename = filename
 
+'''Inheritance'''
+
+    # We can define a new class, inheriting properties from a base Class
+
+    # E.g. New class, inheriting from DataShell class
+        class DataStDev(DataShell):
+            
+            def __init__(self, filename):
+                DataShell.filename = filename
+
+            def get_stdev(self, col_position):
+                column = self.array[1:, col_position].astype(np.float)
+                stdev = np.ndarray.std(column, axis=0)
+                return f"Standard Deviation of column {col_position} : {stdev}"
+
+'''Composition'''
+
+    # Inheritance - using the structure of a base class to build a new class
+    # Composition - taking elements of several different classes to build a new class
+
+    # E.g. DataShell class composed of methods from pandas Class
+        class DataShellComposed:
+
+            def __init__(self, filename):
+                self.filename = filename
+            
+            def create_datashell(self):
+                self.df = pandas.read_csv()
+                return self.df
