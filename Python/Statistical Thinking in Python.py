@@ -247,7 +247,7 @@
     # Probability distributions
 
         # Probability mass function - set of probabilities of discrete outcomes
-        #  Probability distribution - mathematical description of outcomes
+        # Probability distribution - mathematical description of outcomes
 
         # Discrete Uniform Distribution
             # The outcome of rolling a single fair die is discrete, uniformly distributed.
@@ -256,7 +256,77 @@
             # The number r of successes in n Bernoulli trials,
             # with probability p of success is Binomially distributed.
 
-            np.binomial(n, p, size=size)
+            samples = np.random.binomial(n, p, size=no_samples)
+
+            # Binomial CDF
+                import matplotlib.pyplot as plt
+                import seaborn as sns
+                
+                sns.set()
+
+                x, y = ecdf(samples)
+                _ = plt.plot(x, y, marker='.', linestyle='none')
+                plt.margins(0.02)
+                _ = plt.xlabel('number of successes')
+                _ = plt.ylabel('CDF')
+                plt.show()
+
+        # Poisson distribution
+
+            # Poisson process - The timing of the next event is completely independent
+            #                   of when the previous event happened.
+
+            # Examples of Poisson proccesses:
+                # Natural births in a given hospital
+                # Hits on a website in a given hour
+                # Meteor strikes
+                # Molecular collisions in a gas
+                # Aviation accidents
+
+            # The number r of arrivals of a Poisson process in a given time
+            # with an average rate of l arrivals per interval, is Poisson distributed.
+
+            # Poisson distribution is the limit of the Binomial distribution
+            # for low prob of success p (rare events) and large number of trials n.
+            
+            samples = np.random.poisson(mean, size=no_samples)
+
+            # Poisson CDF
+
+                samples = np.random.poisson(6,size=10000)
+                x, y = ecdf(samples)
+                plt.margins(0.02)
+                _ = plt.xlabel('number of successes')
+                _ = plt.ylabel('CDF')
+                plt.show()
+
+    
+'''Thinking probabilistically - Continuous variables'''
+    
+    # Probability density functions
+
+        # Continuous analogue to the PMF.
+        # Mathematical description of the relative likelihood of observing a value of a continous variable.
+        # Consider areas under curve to represent probabilites, as it doesn't make sense to consider probability of a single value
+
+    # Normal distribution
+
+        # Describes a continous variable whose PDF has a single symmetric peak
+        # Parameterised by mean, st. dev.
+
+        samples = np.random.normal(mean, std, size=no_samples)
+
+        # Checking normality of Michaelson data
+
+            import numpy as np
+
+            mean = np.mean(michaelson_speed_of_light)
+            std = np.stsd(michaelson_speed_of_light)
+
+            samples = np.random.normal(mean, std, size=10000)
+
+            x, y = ecdf(michaelson_speed_of_light)
+            x_theor, y_theor = ecdf(samples)
 
 '''Introduction to Hypothesis Testing'''
 
