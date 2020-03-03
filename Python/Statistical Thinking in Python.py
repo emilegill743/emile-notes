@@ -300,7 +300,6 @@
                 _ = plt.ylabel('CDF')
                 plt.show()
 
-    
 '''Thinking probabilistically - Continuous variables'''
     
     # Probability density functions
@@ -327,6 +326,23 @@
 
             x, y = ecdf(michaelson_speed_of_light)
             x_theor, y_theor = ecdf(samples)
+
+'''Parameter estimation by optimization'''
+
+    # Optimal parameters
+        # Parameters that bring the model in closest agreement with the data
+        # Not always the case that the mean and standard deviation of the data will match the optimal model parameters
+    
+    # Linear Regression by least squares
+        # The process of finding the parameters for which the sum of the squares of the residuals is minimal
+
+        np.polyfit() # Least squares with polynomials
+
+        slope, intercept = np.polyfit(x, y, deg) # deg = degree of polynomial we want to fit
+
+    # 
+
+
 
 '''Introduction to Hypothesis Testing'''
 
