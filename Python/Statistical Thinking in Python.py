@@ -340,7 +340,162 @@
 
         slope, intercept = np.polyfit(x, y, deg) # deg = degree of polynomial we want to fit
 
-    # 
+'''Bootstrap confidence intervals'''
+
+    # Generating bootstrap replicates
+
+        # We are not interested in the summary statistics of an individual experiment,
+        # rather the summary statistics if we repeated the experiment many times.
+        
+        # We can simulate many experiments by resampling the results of our experiment
+
+        # Bootstrapping - The use of resampled data to perform statistical inference
+
+            # Bootstrap sample - A resampled array of data
+            # Bootstrap replicate - Value of statistic computed from resampled array
+        
+        import numpy as np
+
+        bs_sample = np.random.choice(array, size=sample_size)
+
+    # Bootstrap confidence intervals
+
+        # Bootstrap replicate function
+
+            def boostrap_replicate_1d(data, func):
+                '''Generate bootsrap replicate of 1D data'''
+                bs_sample = np.random.choice(data, len(data))
+                return(func(bs_sample))
+
+        # Generate many bootstrap replicates
+
+            bs_replicates = np.empty(10000)
+
+             for i in range(10000):
+                 bs_replicates[i] = boostrap_replicate_1d(
+                                        michelson_speed_of_light, np.mean)
+
+            # General function to generate many bootstrap replicates
+
+                def draw_bs_reps(data, func, size=1):
+                    """Draw bootstrap replicates."""
+
+                    # Initialize array of replicates: bs_replicates
+                    bs_replicates = np.empty(size)
+
+                    # Generate replicates
+                    for i in range(size):
+                        bs_replicates[i] = bootstrap_replicate_1d(data, func)
+
+                    return bs_replicates
+
+        # Plot histogram of bootstrap replicates
+
+            _ = plt.hist(bs_replicates, bins=30, normed=True)
+            _ = plt.xlabel('mean_speed of light (km/s)')
+            _ = plt.ylabel('PDF')
+            plt.show()
+
+            # Shows distribution of values likely on repeating the experiment many times
+            # Normalisation means that we can see the relative probability of different values
+
+        # Example
+
+            # Take 10,000 bootstrap replicates of the mean
+            bs_replicates = draw_bs_reps(rainfall, np.mean, 10000)
+
+            # Compute and print SEM (standard error of the mean)
+            sem = np.std(rainfall) / np.sqrt(len(rainfall))
+            print(sem)
+
+            # Compute and print standard deviation of bootstrap replicates
+            bs_std = np.std(bs_replicates)
+            print(bs_std)
+
+            # Make a histogram of the results
+            _ = plt.hist(bs_replicates, bins=50, normed=True)
+            _ = plt.xlabel('mean annual rainfall (mm)')
+            _ = plt.ylabel('PDF')
+
+            # Show the plot
+            plt.show()
+
+            # Results
+            # Notice that the SEM we got from the known expression and the bootstrap replicates
+            # is the same and the distribution of the bootstrap replicates of the mean is Normal.
+            
+        # Confidence interval of a statistic
+
+            # If we repeated measurements many times,
+            # p% of the observed values would lie within the p% confidence interval
+
+            # Since we simulated repeated experiments using boostrapping,
+            # we may calculated a bootstrap confidence interval from out replicates
+
+            # E.g. 95% confidence interval
+            conf_int = np.percentile(bs_replicates, [2.5, 97.5])
+
+    # Pairs bootstrap
+
+        # Nonparametric inference - Make no assumptions about the model or probability distribution of underlying data
+
+        # Pairs bootstrap for linear regression
+
+            # Resample data in pairs
+            # Compute slope and intercept from resampled data
+            # Each slope and intercept is a bootstrap replicate
+            # Compute confidence intervals from percentiles of bootstrap replicates
+
+            # Generating a pairs bootstrap sample
+
+                ind = np.arange(len(total_votes))
+                bs_inds = np.random.choice(inds, len(inds))
+
+                bs_total_votes = total_votes[bs_inds]
+                bs_dem_share = dem_share[bs_inds]
+
+                bs_slope, bs_intercept = np.polyfit(bs_total_votes,
+                                                    bs_dem_share, 1)
+
+                def draw_bs_pairs_linreg(x, y, size=1):
+                    
+                    """Perform pairs bootstrap for linear regression."""
+
+                    # Set up array of indices to sample from: inds
+                    inds = np.arange(len(x))
+
+                    # Initialize replicates: bs_slope_reps, bs_intercept_reps
+                    bs_slope_reps = np.empty(size)
+                    bs_intercept_reps = np.empty(size)
+
+                    # Generate replicates
+                    for i in range(size):
+                        bs_inds = np.random.choice(inds, size=len(inds))
+                        bs_x, bs_y = x[bs_inds], y[bs_inds]
+                        bs_slope_reps[i], bs_intercept_reps[i] = np.polyfit(bs_x, bs_y,1)
+
+                    return bs_slope_reps, bs_intercept_reps
+
+                # Example
+
+                    # Generate array of x-values for bootstrap lines: x
+                    x = np.array([0,100])
+
+                    # Plot the bootstrap lines
+                    for i in range(100):
+                        _ = plt.plot(x, 
+                                    bs_slope_reps[i]*x + bs_intercept_reps[i],
+                                    linewidth=0.5, alpha=0.2, color='red')
+
+                    # Plot the data
+                    _ = plt.plot(illiteracy, fertility, marker='.', linestyle='none')
+
+                    # Label axes, set the margins, and show the plot
+                    _ = plt.xlabel('illiteracy')
+                    _ = plt.ylabel('fertility')
+                    plt.margins(0.02)
+                    plt.show()
+
 
 
 
