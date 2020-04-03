@@ -496,16 +496,13 @@
                     plt.margins(0.02)
                     plt.show()
 
-
-
-
 '''Introduction to Hypothesis Testing'''
 
     # Hypothesis Testing - Assessment of how reasonable the observed data are, assuming a hypothesis is true
 
         # Pipeline for hypothesis testing
             
-            # CLearly state the null hypothesis
+            # Clearly state the null hypothesis
             # Define test statistic
             # Generate many sets of simulated data assuming the null hypothesis is true
             # Compute the test statistic for each simulated data set
@@ -517,7 +514,7 @@
         # Concatenate two samples and scramble data, as if they were exactly the same
         # Compare individual distributions to permutation sample distributions
 
-        #Example
+        # Example
 
             def permutation_sample(data1, data2):
                 """Generate a permutation sample from two data sets."""
@@ -622,6 +619,73 @@
 
             # Print the result
             print('p-value =', p)
+
+    # Bootstrap hypothesis tests
+
+        # Difference between boostrap sampling and permutation sampling
+
+            # Permutation sampling --> Resampling without replacement
+                # E.g. array([0,1,2,3]) --> array([1,3,0,2])
+
+            # Bootstrap sampling --> Resampling with replacement
+                # E.g. array([0,1,2,3]) --> array([2,1,2,3])
+
+        # One sample test - comparing one set of data to a single number
+
+            # Example
+                # Context
+                    # Michelson and Newcomb's independent experiments to calculate the speed of light
+                    # Investigation whether the results are significantly different
+                
+                # Null hypothesis
+                    # True mean speed of light of Michelson's experiment was actually Newcomb's reported value
+
+                # Shift Michelson's data such that mean matches Newcomb's value
+                    
+                    newcomb_value = 299860 # km/s
+                    michelson_shifted = michelson_speed_of_light - np.mean(michelseon_speed_of_light) + newcomb_value
+
+                # Calculating the test statistic
+                    
+                    def diff_from_newcomb(data, newcomb_value=299860):
+                        return np.mean(data) - newcomb_value
+
+                    diff_obs = diff_from_newcomb(michelson_speed_of_light)
+
+                # Computing the p-value
+                    
+                    bs_replicates = draw_bs_reps(michelson_shifted,
+                                                diff_from_newcomb, 10000)
+                    
+                    p_value = np.sum(bs_replicates <= diff_observed) / 10000
+
+                # Results
+                    # p-value of 0.16 suggests that the two did not have significant differences in their measurements
+
+        # Two sample test - comparing two sets of data
+
+            # Example
+
+                # Context -  Testing hpyothesis that Frog A anad Frog B have the same mean impact force
+
+                # Compute mean of all forces: mean_force
+                mean_force = np.mean(forces_concat)
+
+                # Generate shifted arrays
+                force_a_shifted = force_a - np.mean(force_a) + mean_force
+                force_b_shifted = force_b - np.mean(force_b) + mean_force
+
+                # Compute 10,000 bootstrap replicates from shifted arrays
+                bs_replicates_a = draw_bs_reps(force_a_shifted, np.mean, size=10000)
+                bs_replicates_b = draw_bs_reps(force_b_shifted, np.mean, size=10000)
+
+                # Get replicates of difference of means: bs_replicates
+                bs_replicates = bs_replicates_a - bs_replicates_b
+
+                # Compute and print p-value: p
+                p = np.sum(bs_replicates >= empirical_diff_means) / len(bs_replicates)
+                print('p-value =', p)
+
 
 '''Hypothesis Test Examples'''
 
