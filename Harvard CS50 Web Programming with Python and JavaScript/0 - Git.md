@@ -6,6 +6,7 @@
 - [Lecture Notes](https://cs50.harvard.edu/web/notes/0/)
 - [Lecture Slides](http://cdn.cs50.net/web/2018/spring/lectures/0/lecture0.pdf)
 - [Source Code](http://cdn.cs50.net/web/2018/spring/lectures/0/src0.zip)
+- [Course Page](https://courses.edx.org/courses/course-v1:HarvardX+CS50W+Web/course/)
 
 ---
 
