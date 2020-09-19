@@ -325,7 +325,7 @@
 
     #Example - split email into username and domain
 
-        customer_df #Pandas DataFrae with customer data
+        customer_df #Pandas DataFrame with customer data
 
         #Split email column into 2 columns on the '@' symbol
         split_email = customer_df.email.str.split("@", expand=True)
