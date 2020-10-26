@@ -1,10 +1,29 @@
-# Conda Essential
+# Conda Essentials
 
 ## Contents
 
-- [Installing Packages](#Installing-Packages)
-- [Utilising Channels](#Utilising-Channels)
-- [Working with Environments](#Working-with-Environments)
+  - [Installing Packages](#installing-packages)
+    - [Installing packages](#installing-packages-1)
+    - [Listing installed packages](#listing-installed-packages)
+    - [Update a conda package](#update-a-conda-package)
+    - [Remove a conda package](#remove-a-conda-package)
+    - [Search for available package versions](#search-for-available-package-versions)
+    - [Find dependencies of package version](#find-dependencies-of-package-version)
+  - [Utilising Channels](#utilising-channels)
+    - [Searching with channels](#searching-with-channels)
+    - [Searching across channels](#searching-across-channels)
+    - [Default, non-default and special channels](#default-non-default-and-special-channels)
+    - [Installing from a channel](#installing-from-a-channel)
+  - [Working with Environments](#working-with-environments)
+    - [What is a Conda Environment?](#what-is-a-conda-environment)
+    - [Why do we need Environments?](#why-do-we-need-environments)
+    - [Find current environment](#find-current-environment)
+    - [What packages are installed in an environment](#what-packages-are-installed-in-an-environment)
+    - [Switching between environments](#switching-between-environments)
+    - [Remove an environment](#remove-an-environment)
+    - [Create a new environment](#create-a-new-environment)
+    - [Export an environment](#export-an-environment)
+    - [Create and environment from a shared specification](#create-and-environment-from-a-shared-specification)
 
 ## Installing Packages
 
@@ -41,7 +60,7 @@ conda list -n myenv
 # save packages for future use
 conda list --export > package-list.txt
 
-# resinstall packages from and export file
+# re-install packages from and export file
 conda create -n myenv --file package-list.txt
 ```
 
