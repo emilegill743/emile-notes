@@ -6,11 +6,26 @@
 
 ## Contents
 
-* [Reading Data](#Reading-Data)
-* [Visualising Data](#Visualising-Data)
-* [Coordinate Reference Systems](#Coordinate-Reference-Systems)
-* [Attributes of geometric objects](#Attributes-of-geometric-objects)
-* []()
+- [Kaggle - Geospatial Analysis](#kaggle---geospatial-analysis)
+  - [Contents](#contents)
+  - [Reading Data](#reading-data)
+  - [Visualising Data](#visualising-data)
+    - [Plotting GeoDataFrames on the same axis](#plotting-geodataframes-on-the-same-axis)
+  - [Coordinate Reference Systems](#coordinate-reference-systems)
+    - [Setting the CRS](#setting-the-crs)
+    - [Re-projecting](#re-projecting)
+  - [Attributes of geometric objects](#attributes-of-geometric-objects)
+  - [Creating Interactive Maps](#creating-interactive-maps)
+    - [Markers](#markers)
+    - [Marker Clusters](#marker-clusters)
+    - [Bubble Maps](#bubble-maps)
+    - [Heatmaps](#heatmaps)
+    - [Choropleth maps](#choropleth-maps)
+  - [Manipulating Geospatial Data](#manipulating-geospatial-data)
+    - [Geocoding](#geocoding)
+    - [Table joins](#table-joins)
+      - [Attribute joins](#attribute-joins)
+      - [Spatial joins](#spatial-joins)
 
 ---
 
