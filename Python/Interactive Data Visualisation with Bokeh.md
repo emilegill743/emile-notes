@@ -157,7 +157,7 @@ show(plot)
 - Data given as list of list, sublists contain coords for each patch.
 
 ```python
-from boken.io import output_file, show
+from bokeh.io import output_file, show
 from bokeh.plotting import figure
 
 xs = [[1,1,2,2], [2,2,4], [2,2,3,3]]
