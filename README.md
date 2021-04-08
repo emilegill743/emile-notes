@@ -24,8 +24,4 @@
 
 ### Markdown
 
-<<<<<<< HEAD:index.md
 - [Markdown](./markdown/markdown.md)
-=======
-- [Markdown](/markdown/markdown.md)
->>>>>>> 5566d1987d245f0fec7b9b30bea83916df4d3c57:README.md
