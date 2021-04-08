@@ -1,6 +1,6 @@
 ### Python
 
-- [Interactive Data Visualisation with Bokeh](/python/interactive-data-visualisation-with-bokeh.md)
+- [Interactive Data Visualisation with Bokeh](/python/interactive-data-visualisation-with-bokeh)
 - [Introduction to AWS Boto](/python/introduction-to-aws-boto.md)
 - [Introduction to Portfolio Risk Management](/python/introduction-to-portfolio-Risk-management.md)
 - [Software Engineering for Data Scientists](/python/software-engineering-for-data-scientists.md)
