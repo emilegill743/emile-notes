@@ -20,7 +20,7 @@
 
 ### Kaggle
 
-- [Geospatial Analysis](./kaggle/Geospatial%20Analysis/geospatial_analysis.md)
+- [Geospatial Analysis](./kaggle/geospatial_analysis/geospatial_analysis.md)
 
 ### Markdown
 
