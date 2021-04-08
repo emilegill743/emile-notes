@@ -3,4 +3,4 @@ plugins:
   - jekyll-relative-links
 relative_links:
   enabled: true
-  collections: false
+  collections: true
