@@ -3,4 +3,8 @@ plugins:
 relative_links:
   enabled: true
   collections: true
+kramdown:
+  math_engine: mathjax
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  syntax_highlighter: rouge
 theme: jekyll-theme-slate
