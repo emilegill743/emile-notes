@@ -4,7 +4,5 @@ relative_links:
   enabled: true
   collections: true
 kramdown:
-  math_engine: katex
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  syntax_highlighter: rouge
+  math_engine: mathjax
 theme: jekyll-theme-slate
