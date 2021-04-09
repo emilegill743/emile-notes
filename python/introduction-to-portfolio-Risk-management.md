@@ -1,4 +1,3 @@
-{% include lib/mathjax.html %}
 # Introduction to Portfolio Risk Management in Python
 
 - [Introduction to Portfolio Risk Management in Python](#introduction-to-portfolio-risk-management-in-python)
