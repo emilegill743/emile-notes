@@ -400,6 +400,7 @@ t1 = BashOperator(
 **Templated example:**
 
 Simple example-
+<!-- {% raw %} -->
 ```python
 templated_command="""
   echo "Reading {{params.filename}}"
@@ -415,8 +416,11 @@ t1 = BashOperator(task_id='template_task',
                   params={'filename': 'file2.txt'},
                   dag=example_dag)
 ```
+<!-- {% endraw %} -->
 
 More advanced example-
+
+<!-- {% raw %} -->
 ```python
 templated_command = """
   {% for filename in params.filenames %}
@@ -429,35 +433,37 @@ t1 = BashOperator(task_id='templated_task',
                   params={'filenames': ['file1.txt', 'file2.txt']},
                   dag=example_dag)
 ```
+<!-- {% endraw %} -->
 
 **Variables:**
 
 Airflow provides several built-in runtime variables, providing infor about DAG runs, tasks, system config etc.
 
 Examples:
-
+<!-- {% raw %} -->
 | description                                    | variable             |
 | ---------------------------------------------- | -------------------- |
 | Execution Date (YYYY-MM-DD)                    | {{ ds }}             |
 | Execution Date, no dashes (YYYYMMDD)           | {{ds_nodash}}        |
 | Previous Execution Date (YYYY-MM-DD)           | {{ prev_ds }}        |
 | Previous Execution Date, no dashes (YYYYMMDD)  | {{ prev_ds_nodash }} |
-| DAG object:                                    | {{ dag }}            |
-| Airflow config object:                         | {{ conf }}           |
+| DAG object                                     | {{ dag }}            |
+| Airflow config object                          | {{ conf }}           |
+<!-- {% endraw %} -->
 
 **Macros:**
 
 In addition to the other variables provided, airflow also provides a `macros` variable referencing the Airflow macros package. This provides various useful objects/methods for Airflow templates.
 
 Examples:
-
+<!-- {% raw %} -->
 | macro | description |
 | ---------------------------------------------- | -------------------- |
 | {{ macros.datetime }} | `datetime.datetime` object |
 | {{ macros.timedelta }} | `datetime.timedelta` object |
 | {{ macros.uuid }} | Python's `uuid` object |
 | {{ macros.ds_add('2020-04-15', 5)  }}  | Modify days from a date, e.g. this will return 2020-04-20 |
-
+<!-- {% endraw %} -->
 ### Branching
 
 - Provides conditional logic, i.e. tasks which can be selectively executed or skippedon the result of an operator.
@@ -492,7 +498,7 @@ airflow trigger_dag -e <date> <dag_id>
 ```
 
 **Pipeline Example:**
-
+<!-- {% raw %} -->
 ```python
 from airflow.models import DAG
 from airflow.contrib.sensors.file_sensor import FileSensor
@@ -530,7 +536,6 @@ python_task = PythonOperator(task_id='run_processing',
                              provide_context=True,
                              dag=dag)
 
-
 email_subject="""
   Email report for {{ params.department }} on {{ ds_nodash }}
 """
@@ -565,7 +570,8 @@ branch_task = BranchPythonOperator(task_id='check_if_weekend',
 sensor >> bash_task >> python_task
 
 python_task >> branch_task >> [email_report_task, no_email_task]
-
+```
+<!-- {% endraw %} -->
 
 
 
