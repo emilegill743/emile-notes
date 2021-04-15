@@ -440,30 +440,29 @@ t1 = BashOperator(task_id='templated_task',
 Airflow provides several built-in runtime variables, providing infor about DAG runs, tasks, system config etc.
 
 Examples:
-<!-- {% raw %} -->
+
 | description                                    | variable             |
 | ---------------------------------------------- | -------------------- |
-| Execution Date (YYYY-MM-DD)                    | {{ ds }}             |
-| Execution Date, no dashes (YYYYMMDD)           | {{ds_nodash}}        |
-| Previous Execution Date (YYYY-MM-DD)           | {{ prev_ds }}        |
-| Previous Execution Date, no dashes (YYYYMMDD)  | {{ prev_ds_nodash }} |
-| DAG object                                     | {{ dag }}            |
-| Airflow config object                          | {{ conf }}           |
-<!-- {% endraw %} -->
+| Execution Date (YYYY-MM-DD)                    | <!-- {% raw %} -->{{ ds }}<!-- {% endraw %} -->             |
+| Execution Date, no dashes (YYYYMMDD)           | <!-- {% raw %} -->{{ds_nodash}}<!-- {% endraw %} -->        |
+| Previous Execution Date (YYYY-MM-DD)           | <!-- {% raw %} -->{{ prev_ds }}<!-- {% endraw %} -->        |
+| Previous Execution Date, no dashes (YYYYMMDD)  | <!-- {% raw %} -->{{ prev_ds_nodash }}<!-- {% endraw %} --> |
+| DAG object                                     | <!-- {% raw %} -->{{ dag }}<!-- {% endraw %} -->            |
+| Airflow config object                          | <!-- {% raw %} -->{{ conf }}<!-- {% endraw %} -->           |
 
 **Macros:**
 
 In addition to the other variables provided, airflow also provides a `macros` variable referencing the Airflow macros package. This provides various useful objects/methods for Airflow templates.
 
 Examples:
-<!-- {% raw %} -->
+
 | macro | description |
 | ---------------------------------------------- | -------------------- |
-| {{ macros.datetime }} | `datetime.datetime` object |
-| {{ macros.timedelta }} | `datetime.timedelta` object |
-| {{ macros.uuid }} | Python's `uuid` object |
-| {{ macros.ds_add('2020-04-15', 5)  }}  | Modify days from a date, e.g. this will return 2020-04-20 |
-<!-- {% endraw %} -->
+| <!-- {% raw %} -->{{ macros.datetime }}<!-- {% endraw %} --> | `datetime.datetime` object |
+| <!-- {% raw %} -->{{ macros.timedelta }}<!-- {% endraw %} --> | `datetime.timedelta` object |
+| <!-- {% raw %} -->{{ macros.uuid }}<!-- {% endraw %} --> | Python's `uuid` object |
+| <!-- {% raw %} -->{{ macros.ds_add('2020-04-15', 5)  }}<!-- {% endraw %} -->  | Modify days from a date, e.g. this will return 2020-04-20 |
+
 ### Branching
 
 - Provides conditional logic, i.e. tasks which can be selectively executed or skippedon the result of an operator.
