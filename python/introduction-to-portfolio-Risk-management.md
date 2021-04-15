@@ -53,7 +53,7 @@
 
 Discrete returns are calculated as the percentage change in price across a period.
 
-$$R_{t_2} = \frac{(P_{t_2} - P_{t_1})}{P_{t_2}}$$
+$R_{t_2} = \frac{(P_{t_2} - P_{t_1})}{P_{t_2}}$
 
 Log returns are calculated as the difference between the log of two prices.
 

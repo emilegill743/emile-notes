@@ -1,19 +1,34 @@
-###INTODUCTION TO DATA ENGINEERING###
+# Introduction to Data Engineering
 
-'''What is data engineering?'''
+- [Introduction to Data Engineering](#introduction-to-data-engineering)
+  - [What is data engineering?](#what-is-data-engineering)
+  - [Tools of the data engineer](#tools-of-the-data-engineer)
+  - [Cloud providers](#cloud-providers)
+  - [Databases'''](#databases)
+  - [Parallel Computing](#parallel-computing)
+  - [Parallel computation frameworks](#parallel-computation-frameworks)
+  - [Workflow Scheduling Frameworks'''](#workflow-scheduling-frameworks)
+  - [Extract](#extract)
+  - [Tranform](#tranform)
+  - [Load](#load)
+  - [Putting it all together](#putting-it-all-together)
+  - [Case Study: Course Ratings](#case-study-course-ratings)
 
-    #Definition: An engineer that develops, constructs, tests and maintains architechtures such as databases and large-scale processing systems.
-        #Processing large amounts of data
-        #Use of clusters of machines
+## What is data engineering?
+
+> **Definition**: An engineer that develops, constructs, tests and maintains architechtures such as databases and large-scale processing systems.
+- Processing large amounts of data
+- Use of clusters of machines
     
-    #Responsibilities:
-        #Develop scalable data architechture
-        #Streamline data acquisition
-        #Set up processes to bring together data
-        #Clean corrupt data
-        #Well versed in cloud technology
+**Responsibilities**:
 
-'''Tools of the data engineer'''
+- Develop scalable data architechture
+- Streamline data acquisition
+- Set up processes to bring together data
+- Clean corrupt data
+- Well versed in cloud technology
+
+## Tools of the data engineer
 
     #Databases
         #e.g. SQL, NoSQL
@@ -31,7 +46,7 @@
 
         #e.g. Airflow, oozie,  cron
     
-'''Cloud providers'''
+## Cloud providers
 
     #AWS
         #Storage - AWS S3
@@ -48,7 +63,7 @@
         #Computation - Google Compute Engine
         #Databases - Google Cloud SQL
 
-'''Databases'''
+## Databases'''
 
     #Hold data
     #Organise data
@@ -56,7 +71,7 @@
 
     #SQL vs NoSQL
 
-'''Parallel Computing'''
+## Parallel Computing
     
     #Split task into subtasks
     #Distributed over several computers
@@ -124,7 +139,7 @@
             # Calculate the mean Age per Year
             print(athlete_events_dask.groupby('Year').Age.mean().compute())
 
-'''Parallel computation frameworks'''
+## Parallel computation frameworks
 
     #Hadoop
         #HDFS - Distributed file system
@@ -165,7 +180,7 @@
             --master local[4] \
             /home/repl/spark-script.py
 
-'''Workflow Scheduling Frameworks'''
+## Workflow Scheduling Frameworks'''
 
     #DAG - Directed Acyclic Graph
         #Set of Nodes
@@ -228,7 +243,7 @@
             #assemble_frame -->
                                 #-->assemble_body --> apply_paint
 
-'''Extract'''
+## Extract
 
     #Persistent storage (not suited for data processing) --> Memory
     #E.g. file on S3, database, API
@@ -314,7 +329,7 @@
                     # Extract the customer table into a pandas DataFrame
                     extract_table_to_pandas("customer", db_engine)
 
-'''Tranform'''
+## Tranform
 
     #Kind of transformation
         #Selection of attribute (e.g. 'email')
@@ -358,7 +373,7 @@
             customer_df.customer_id == ratings_per_customer.customer_id
         )
 
-'''Load'''
+## Load
 
     #Analytic DB
         #Aggregate queries
@@ -408,7 +423,7 @@
                                 if_exists= "replace")
         #if_exists can also be fail, append
         
-'''Putting it all together'''
+## Putting it all together
 
     #ETL function
 
@@ -447,7 +462,7 @@
         #Save as python file in dag folder of airflow
         # etl_dag.py --> ~/airflow/dags/
 
-'''Case Study: Course Ratings'''
+## Case Study: Course Ratings
 
     #ETL Process
     #SQL_DB => Cleaning => Calculate Recommendations =>SQL_DataWareHouse

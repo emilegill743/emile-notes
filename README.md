@@ -7,6 +7,7 @@
 - [Supervised Learning with scikit-learn](./python/supervised-learning-with-scikit-learn.md)
 - [Unit testing for Data Science](./python/unit-testing-for-data-science.md)
 - [Web Scraping with Python](./python/web-scraping-with-python.md)
+- [Introduction to Airflow](./python/introduction-to-airflow.md)
 
 ### SQL
 
