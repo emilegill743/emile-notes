@@ -9,7 +9,13 @@
     - [Assert statements](#assert-statements)
     - [Testing for exceptions instead of return values](#testing-for-exceptions-instead-of-return-values)
     - [How many tests should one write for a function?](#how-many-tests-should-one-write-for-a-function)
-  - [Test Driven Development (TDD)](#test-driven-development-tdd)
+    - [Test Driven Development (TDD)](#test-driven-development-tdd)
+  - [Test Organisation and Execution](#test-organisation-and-execution)
+    - [Organising tests](#organising-tests)
+    - [Mastering Test Execution](#mastering-test-execution)
+    - [Expected Failures and Conditional Skipping](#expected-failures-and-conditional-skipping)
+    - [Continuous integration and code coverage](#continuous-integration-and-code-coverage)
+  - [Testing Models, Plots and Much More](#testing-models-plots-and-much-more)
 
 ## Unit Testing Basics
 
@@ -124,7 +130,7 @@ def test_for_missing_area():
                "returned {0} instead "
                "of {1}".format(actual, expected)
                
-    assert actual is expected, message)
+    assert actual is expected, message
 ```
 
 **Assertions with Floats:**
@@ -140,7 +146,7 @@ assert 0.1 + 0.1 + 0.1 == pytest.approx(0.3)
 This method also works for NumPy arrays:
 
 ```python
-assert np.array([0.1 + 0.1, 0.1 + 0.1]) == pytest.approx(np.array([0.2, 0.3]))
+assert np.array([0.1 + 0.1, 0.1 + 0.1 + 0.1]) == pytest.approx(np.array([0.2, 0.3]))
 ```
 
 **Multiple assertions in one unit test:**
@@ -205,9 +211,253 @@ def test_valueerror_on_one_dimensional_arg():
 
 Note: not all functions will have special or bad arguments.
 
-## Test Driven Development (TDD)
+### Test Driven Development (TDD)
 
 It is good practice to always write unit tests prior to implementation of any code.
 - Unit tests cannot be deprioritised.
 - Time for writing unit tests must be factored into implementation time.
 - Requirements are clearer and implementation is easier.
+
+## Test Organisation and Execution
+
+### Organising tests
+
+**Project Structure:**
+
+```bash
+src/                                    # All application code lives here
+|-- data/                               # Package for data preprocessing
+      |-- __init__.py
+      |-- preprocessing_helpers.py      # Contains row_to_list(), convert_to_int()
+|-- features                            # Package for feature generation from preprocessed data
+      |-- __init__.py
+      |-- as_numpy.py                   # Contains get_data_as_numpy_array()
+|-- models                              # Package for training/testing linear regression model
+      |-- __init__.py
+      |-- train.py                      # Contains split_into_training_and_testing_sets()
+tests/                                  # Test suite: all tests live here
+|-- data/
+      |-- __init__.py
+      |-- test_preprocessing_helpers.py # Corresponds to module src/data/preprocessing_helpers.py
+|-- features
+      |-- __init__.py
+      |-- test_as_numpy.py              # Contains TestGetDataAsNumpyArray
+|-- models
+      |-- __init__.py
+      |-- test_train.py                 # Contains TestSplitIntoTrainingAndTestSets
+```
+
+For each module `my_module.py` there should exist an equivalent `test_my_module.py`. This mirroring of the internal structure of our project ensures that if we know the location of a module in our project, we can infer the location of its test set.
+
+**Test module structure:**
+
+```python
+import pytest
+from data.preprocessing_helpers import row_to_list, convert_to_int
+
+class TestRowToList(object):      # Use CamelCase
+    
+    def test_on_no_tab_no_missing_value(self):
+        ...
+    
+    def test_on_two_tabs_no_missing_value(self):
+        ...
+
+class TestConvertToInt(object):
+
+    def test_with_no_comma(self):
+        ...
+    
+    def test_with_one_comma(self):
+        ...
+```
+
+### Mastering Test Execution
+
+- **Running all tests**
+
+  ```bash
+  cd tests
+  pytest
+  ```
+
+- **Stop after first failure**
+
+  ```bash
+  pytest -x
+  ```
+
+- **Running a subset of tests**
+
+  ```bash
+  pytest data/test_preprocessing_helpers.py
+  ```
+
+  pytest assigns a unique **Node ID** to each test class and unit test it encounters:
+
+  - **Node ID of a test class**:
+
+    `<path to test module>::<test class name>`
+
+    ```bash
+    pytest data/test_preprocessing_helpers.py::TestRowToList
+    ```
+
+  - **Node ID of a unit test**:
+  
+    `<path to test module>::<test class name>::<unit test name>`
+
+    ```bash
+    pytest data/test_preprocessing_helpers.py::TestRowToList::test_on_one_tab_with_missing_value
+    ```
+
+- **Running tests using keyword expressions**
+
+  ```bash
+  pytest -k "pattern"
+  ```
+
+  e.g.
+  ```bash
+  pytest -k "TestSplitIntoTrainingAndTestingSets"
+  ```
+  ```bash
+  pytest -k "TestSplit"
+  ```
+
+  ```bash
+  pytest -k "TestSplit and not test_on_one_row"
+  ```
+
+### Expected Failures and Conditional Skipping
+
+If we want to mark a test that is expected to fail, e.g. the function is not yet implemented, we may do so with the `xfail` decorator. This will result in the tets being marked as xfail in the test results, but not cause a failure of the test suite.
+
+```python
+import pytest
+
+class TestTrainModel(object):
+    @pytest.mark.xfail(reason="Using TDD, train_model() is not implemented")
+    def test_on_linear_data(self):
+         ...
+```
+
+If we wish to skip a test baseed on a given condition, e.g. a test which only works on a particular Python version, we may use the `skipif` decorator. If the boolean expression passed to the decorator is `True` then the test will be skipped. We must also pass the `reason` argument to describe the reason for this test being skipped.
+
+```python
+import pytest
+import sys
+
+class TestConvertToInt(object):
+     @pytest.mark.skipif(sys.version_info > (2,7, reason="requires Python 2.7")
+     def test_with_no_comma(self):
+          """Only runs on Python 2.7 or lower"""
+          test_argument = "756"
+          expected = 756
+          actual = convert_to_int(test_argument)
+          message = unicode("Expected: 2081, Actual: {0}".format(actual))
+          assert actual == expected, message
+```
+
+**Showing reason for skipping/xfail:**
+
+```bash
+pytest -r[set of characters]
+
+pytest -rs # Show reason for skipping
+
+pytest -rx # Show reason for xfail
+
+pytest -rsx # Show both skipping and xfail reasons
+```
+
+Skipping/xfailing may also be applied to entire test classes.
+
+```python
+@pytest.mark.xfail(reason="Using TDD, train_model() is not implemented")
+class TestTrainModel(object):
+     ...
+```
+
+### Continuous integration and code coverage
+
+Developers $\rightarrow$ GitHub $\rightarrow$ CI Server
+
+**Build status badge:**
+
+  - Build passing $\implies$ Stable Project
+
+  - Build Failing $\implies$ Unstable Project
+
+**Setting up a CI Server with Travis:**
+
+1) Create a configuration file (`.travis.yml`)
+
+```yaml
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install -e .
+
+script:
+  - pytest tests
+```
+
+2) Push the file to GitHub
+
+```bash
+git add .travis.yml
+git push origin master
+```
+
+3) Install the Travis CI app
+
+  - The Travis CI app can be installed through the GitHub Marketplace.
+  - Travis CI is free for public respositories.
+  - Every commit pushed to our GitHub repo will now trigger a build in Travis.
+
+4) Show the build status badge
+
+  - Click on the badge show in Travis
+  - Select "Markdown".
+  - Paste markdown code in GitHub `README.md`
+
+**Adding Code Coverage Badge to GitHub:**
+
+$\text{code coverage} = \frac{\text{num lines of application code that ran during testing}}{\text{total num lines of application code}}$
+
+High percentages (75% and above) indicate a well tested code base.
+
+1) Modify .travis.yml
+
+```yaml
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -e .
+  - pip install pytest-cov codecov # Install packages for code coverage report
+script:
+  - pytest --cov=src tests        # Point to the source directory
+after_success:
+  - codecov                       # Uploads report to codecov.io
+```
+
+2) Install Codecov app from Github Marketplace
+
+3) Paste markdown link for badge in `README.md`
+
+
+
+
+
+
+  
+
+
+
+
+## Testing Models, Plots and Much More

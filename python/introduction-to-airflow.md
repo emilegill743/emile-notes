@@ -241,7 +241,7 @@ Special presets:
 
 ```python
 'start_date': datetime(2020, 2, 25),
-'schedule_interval': @daily
+'schedule_interval': '@daily'
 ```
 will trigger for the first time on February 26th 2020.
 

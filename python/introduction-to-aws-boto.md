@@ -40,7 +40,7 @@
 
 ## Intro to AWS and Boto3
 
-AWS provide storage, compute and alerts services that we can leverage in data projects. AWS services are granular, meaning they can work together, or on their own.
+AWS provides storage, compute and alerts services that we can leverage in data projects. AWS services are granular, meaning they can work together, or on their own.
 
 To interact with AWS services using Python we can use the `Boto3` library:
 
@@ -384,7 +384,7 @@ r = s3.list_objects(BUcket='gid-reports', Prefix='2019/')
 objects_df = pd.DataFrame(r['Contents'])
 
 # Create column "Link" that contains website url + key
-base_url = 'http://datacamp-website.s3.amazonaws.com/"
+base_url = 'http://datacamp-website.s3.amazonaws.com/'
 objects_df['Link'] = base_url + objects_df['Key']
 
 # Write DataFrame to html
